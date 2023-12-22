@@ -5,11 +5,29 @@ public class Admin {
     private String lastName;
     private String id;
 
-    public Admin(String username, String password, String firstName, String lastName, String id) {
+    public Admin(String username, String password) {
         this.username = username;
         this.password = password;
+        // this.firstName = firstName;
+        // this.lastName = lastName;
+        // this.id = id;
+    }
+    public String getFirstName(){
+        return firstName;
+    }
+    public void setFirstName(String firstName){
         this.firstName = firstName;
+    }
+    public String getLastName(){
+        return lastName;
+    }
+    public void setLastName(String lastName){
         this.lastName = lastName;
+    }
+    public String getID(){
+        return id;
+    }
+    public void setID(String id){
         this.id = id;
     }
 

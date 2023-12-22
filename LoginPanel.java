@@ -102,10 +102,13 @@ public class LoginPanel extends JPanel {
         } else {
             // Admin handling for comparison
             AdminHandling adminHandler = new AdminHandling();
-            String storedPassword = adminHandler.retrieveAdminCredentials(username);
+            String storedPasswordHash = adminHandler.retrieveAdminCredentials(username);
     
-            if (storedPassword != null) {
-                return storedPassword.equals(password);
+            if (storedPasswordHash != null) {
+                String enteredPasswordHash = PasswordUtils.hashPassword(password);
+
+            // Compare the entered password's hash with the stored hash
+            return enteredPasswordHash != null && enteredPasswordHash.equals(storedPasswordHash);
             }
         }
         return false;

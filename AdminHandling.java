@@ -78,9 +78,6 @@ public class AdminHandling {
     }
 
     // Method to get all admin usernames
-    public HashMap<String, String> getAllAdminUsernames() {
-        return adminCredentials;
-    }
     public void addAdmin(String username, String password) {
         try {
             File adminFile = new File("admin.txt");
