@@ -84,7 +84,7 @@ public class Logic {
                     } else {
                         rentedLaptops.put(laptopId, studentId);
                         fileHandler.writeToFile(rentedLaptops, availableLaptops);
-                        JOptionPane.showMessageDialog(null, "Laptop rented successfully.");
+                        JOptionPane.showMessageDialog(null, "Laptop rented successfully.\n Bring your Student ID to the receptionist for pickup.");
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid Laptop ID.");
@@ -153,12 +153,12 @@ public class Logic {
     private Map<String, Laptop> initializeAvailableLaptops() {
         Map<String, Laptop> laptops = new HashMap<>(); // Initialize laptops as a new HashMap
 
-        laptops.put("ID001", new Laptop("ID001", "Lenovo L13", "lenovo.png", 1300.0));
-        laptops.put("ID002", new Laptop("ID002", "Dell Latitude", "dell.png", 1400.0));
-        laptops.put("ID003", new Laptop("ID003", "Acer Aspire", "acer.png", 1300.0));
-        laptops.put("ID004", new Laptop("ID004", "MSI GF63", "msi.png", 1200.0));
-        laptops.put("ID005", new Laptop("ID005", "HP Envy", "hp.png", 1700.0));
-        laptops.put("ID006", new Laptop("ID006", "Lenovo Thinkpad", "LenovoT.png", 1200.0));
+        laptops.put("ID001", new Laptop("ID001", "Lenovo L13", "lenovo.png", 200.0));
+        laptops.put("ID002", new Laptop("ID002", "Dell Latitude", "dell.png", 400.0));
+        laptops.put("ID003", new Laptop("ID003", "Acer Aspire", "acer.png", 300.0));
+        laptops.put("ID004", new Laptop("ID004", "MSI GF63", "msi.png", 200.0));
+        laptops.put("ID005", new Laptop("ID005", "HP Envy", "hp.png", 300.0));
+        laptops.put("ID006", new Laptop("ID006", "Lenovo Thinkpad", "LenovoT.png", 200.0));
         // Add more laptops here...
 
         return laptops; 
@@ -190,7 +190,7 @@ public class Logic {
             nameLabel.setBounds(5, 5, 150, 25);
             imageLabel.setBounds((400 - imageSize) / 2, 35, imageSize, imageSize);
             idLabel.setBounds(5, 250, 100, 25);
-            priceLabel.setBounds(300, 249, 100, 25);
+            priceLabel.setBounds(350, 249, 100, 25);
     
             if (rentedLaptops.containsKey(laptop.getId())) {
                 if (rentedLaptops.containsKey(laptop.getId())) {
