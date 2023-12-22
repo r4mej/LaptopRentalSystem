@@ -102,10 +102,11 @@ public class GUIComponents {
         return listButton;
     }
 
-    private void handleLogoutButtonClick() {
-        frame.setVisible(false); // Hide the GUI
-        app.setVisible(true);    // Show the login/signup app window
+    public void handleLogoutButtonClick() {
         app.showAdminPanel(false);
+        frame.setVisible(false); // Hide the GUI
         app.updateUserDetails();
+        LoginSignupApp newAppInstance = new LoginSignupApp(); // Create a new instance of LoginSignupApp
+        newAppInstance.setVisible(true); // Show the new login/signup app window
     }
 }

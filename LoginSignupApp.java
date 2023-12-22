@@ -80,6 +80,13 @@ public class LoginSignupApp extends JFrame {
         gui = new GUI(this);
         gui.setVisible(true);
     }
+    public void logout(){
+        showAdminPanel(false);
+        setVisible(false); // Hide the GUI
+        updateUserDetails();
+        LoginSignupApp newAppInstance = new LoginSignupApp(); // Create a new instance of LoginSignupApp
+        newAppInstance.setVisible(true); // Show the new login/signup app window
+    }
 
     public GUI getGUI() {
         return gui;

@@ -20,6 +20,7 @@ public class AdminGUI extends JFrame {
     private DefaultListModel returnedLaptopsListModel;
     private DefaultListModel userListModel;
     private Image backgroundImage;
+    private GUIComponents components;
 
     private JButton updateUserListButton;
     private JButton updateRentHistoryButton;
@@ -27,6 +28,7 @@ public class AdminGUI extends JFrame {
 
     public AdminGUI(LoginSignupApp app) {
         this.app = app;
+        this.components = components;
         this.userListModel = new DefaultListModel<>(); // Initialize the DefaultListModel
         this.userList = new JList<>(userListModel); // Assign the DefaultListModel to the JList
         this.returnedLaptopsListModel = new DefaultListModel<>();
@@ -93,7 +95,7 @@ public class AdminGUI extends JFrame {
         mainPanel.add(updateRentHistoryButton);
         mainPanel.add(updateReturnedLaptopsButton);
 
-        JButton menuButton = new JButton("Menu");
+        JButton menuButton = new JButton("Logout");
         menuButton.setBounds(670, 550, 100, 30);
         menuButton.addActionListener(e -> handleMenu()); // Call method for handling menu actions
         mainPanel.add(menuButton);
@@ -125,7 +127,7 @@ public class AdminGUI extends JFrame {
     }
 
     private void handleMenu() {
-        app.showGUI();
+        app.logout();
     }
 
     public void updateUserList(HashMap<String, Student> users) {
