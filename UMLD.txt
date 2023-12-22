@@ -1,0 +1,36 @@
++--------------------------+       +---------------------+       +-------------------------+        +---------------------+
+|    LoginSignupApp        |       |   UsersHandling    |       |      GUIComponents      |        |        Logic        |
++--------------------------+       +---------------------+       +-------------------------+        +---------------------+
+| - users: HashMap<String, |       | - users: HashMap<  |       | - frame: JFrame          |        | - rentedLaptops: Map<|
+|   String[]>              |       |    String, String[]>|       | - rentButton: JButton    |       |    String, String>  |
+| - gui: GUI               |       |                     |       | - returnButton: JButton  |       | - fileHandler:        |
+| - usersHandler:          |       | + loadUsersFromFile()|       | - listButton: JButton    |      |    FileHandler       |
+|   UsersHandling          |       | + saveUsersToFile()  |       | - logoutButton: JButton  |      | - guiComponents:      |
+| + showSignupForm()       |       +---------------------+       | - panel: JPanel           |      |    GUIComponents     |
+| + showLoginForm()        |                                      | - logic: Logic            |     | - isLoggedIn: boolean|
+| + saveUsersToFile()      |                                      +-------------------------+       +---------------------+
+| + showGUI()              |
+| + getGUI()               |
+| + main(args: String[])   |
++--------------------------+
+
++--------------------+        +---------------------+       +----------------------+       +--------------------+
+|    LoginPanel      |        |    SignupPanel      |       |       ImagePanel     |       |   FileHandler      |
++--------------------+        +---------------------+       +----------------------+       +--------------------+
+| - usernameField    |        | - usernameField     |       | - backgroundImage:   |       | - filename: String |
+| - passwordField    |        | - passwordField     |       |   Image              |       |                    |
+| - loginButton      |        | - idField           |       +----------------------+       |                    |
+| - signupButton     |        | - signupButton      |                                      |                    |
+| - backgroundImage  |        | - backButton        |                                      |                    |
+| - app: LoginSignupApp |     | - backgroundImage   |                                      |                    |
+| - users: HashMap< |         | - app: LoginSignupApp|                                     |                    |
+|    String, String[]>|       +---------------------+                                      |                    |
+| + paintComponent(g: |                                                                    |                    |
+|    Graphics): void |                                                                     |                    |
+| + handleLogin():   |                                                                     |                    |
+|    void            |                                                                     |                    |
+| + isValidLogin(username: |                                                               |                    |
+|    String, password: |                                                                   |                    |
+|    String): boolean|                                                                     |                    |
+|                    |                                                                     |                    |
++--------------------+                                                                     +--------------------+
