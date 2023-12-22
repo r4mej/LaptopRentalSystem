@@ -3,12 +3,14 @@ public class Laptop {
     private String name;
     private double price;
     private String imagePath; // New field for the image path
+    private String specs;
 
-    public Laptop(String id, String name, String imagePath, double price) {
+    public Laptop(String id, String name, String imagePath, double price, String specs) {
         this.id = id;
         this.name = name;
         this.imagePath = imagePath;
         this.price = price;
+        this.specs = specs;
 
     }
 
@@ -43,5 +45,12 @@ public class Laptop {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+    public String getSpecs() {
+        return specs;
+    }
+
+    public void setSpecs(String specs) {
+        this.specs = specs;
     }
 }

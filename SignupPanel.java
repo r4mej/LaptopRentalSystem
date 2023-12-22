@@ -156,7 +156,7 @@ public class SignupPanel extends JPanel {
     
         if ("Admin".equals(selectedRole)) {
             String hashedPassword = PasswordUtils.hashPassword(password);
-            app.saveAdminCredentials(username, hashedPassword); // Consider saving hashed password here instead
+            app.saveAdminCredentials(username, hashedPassword); 
         } else if ("Student".equals(selectedRole)) {
             String hashedPassword = PasswordUtils.hashPassword(password);
             Student newStudent = new Student(username, hashedPassword, id, firstName, lastName); // Store hashed password

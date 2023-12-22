@@ -153,12 +153,12 @@ public class Logic {
     private Map<String, Laptop> initializeAvailableLaptops() {
         Map<String, Laptop> laptops = new HashMap<>(); // Initialize laptops as a new HashMap
 
-        laptops.put("ID001", new Laptop("ID001", "Lenovo L13", "lenovo.png", 200.0));
-        laptops.put("ID002", new Laptop("ID002", "Dell Latitude", "dell.png", 400.0));
-        laptops.put("ID003", new Laptop("ID003", "Acer Aspire", "acer.png", 300.0));
-        laptops.put("ID004", new Laptop("ID004", "MSI GF63", "msi.png", 200.0));
-        laptops.put("ID005", new Laptop("ID005", "HP Envy", "hp.png", 300.0));
-        laptops.put("ID006", new Laptop("ID006", "Lenovo Thinkpad", "LenovoT.png", 200.0));
+        laptops.put("ID001", new Laptop("ID001", "Lenovo L13", "lenovo.png", 200.0,"10th Gen Intel Core i7, 16GB RAM ,1TB SSD"));
+        laptops.put("ID002", new Laptop("ID002", "Dell Latitude", "dell.png", 400.0,"13th Gen Intel Core 15, 8GB RAM, 256GB SSD"));
+        laptops.put("ID003", new Laptop("ID003", "Acer Aspire", "acer.png", 300.0, "Intel UHD Graphics, 8GB RAM, 256GB SSD"));
+        laptops.put("ID004", new Laptop("ID004", "MSI GF63", "msi.png", 600.0, "9th Gen Intel Core i7, 64GB RAM, 1TB SSD"));
+        laptops.put("ID005", new Laptop("ID005", "HP Envy", "hp.png", 300.0, "5th Gen Intel Core i7, 12GB RAM, 1TB HDD"));
+        laptops.put("ID006", new Laptop("ID006", "Lenovo Thinkpad", "LenovoT.png", 200.0, "3rd Gen Intel Core i7, 4GB RAM, 128GB SSD"));
         // Add more laptops here...
 
         return laptops; 
@@ -181,16 +181,20 @@ public class Logic {
             laptopPanel.setPreferredSize(new Dimension(panelWidth, imageSize + 100));
     
             JLabel nameLabel = new JLabel("Name: " + laptop.getName());
+            JLabel specsLabel = new JLabel("Specifications: "+ laptop.getSpecs());
             ImageIcon icon = new ImageIcon(new ImageIcon(laptop.getImagePath()).getImage().getScaledInstance(imageSize,
                     imageSize, Image.SCALE_SMOOTH));
             JLabel imageLabel = new JLabel(icon);
             JLabel idLabel = new JLabel("ID: " + laptop.getId());
-            JLabel priceLabel = new JLabel("Price:" + laptop.getPrice());
+            JLabel priceLabel = new JLabel("Price: " + laptop.getPrice());
+            JLabel dayLabel = new JLabel("(Per day)");
     
             nameLabel.setBounds(5, 5, 150, 25);
-            imageLabel.setBounds((400 - imageSize) / 2, 35, imageSize, imageSize);
+            imageLabel.setBounds((400 - imageSize) / 2, 40, imageSize, imageSize);
+            specsLabel.setBounds(5,20,400,25);
             idLabel.setBounds(5, 250, 100, 25);
             priceLabel.setBounds(350, 249, 100, 25);
+            dayLabel.setBounds(360, 259, 100, 25);
     
             if (rentedLaptops.containsKey(laptop.getId())) {
                 if (rentedLaptops.containsKey(laptop.getId())) {
@@ -201,14 +205,19 @@ public class Logic {
                 }
                 laptopPanel.setBorder(BorderFactory.createLineBorder(Color.RED, 3));
             } else {
+                JLabel available = new JLabel("Available");
+                available.setForeground(Color.GREEN);
+                available.setBounds(5, 270, 100, 25);
+                laptopPanel.add(available);
                 laptopPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN, 3));
             }
     
             laptopPanel.add(nameLabel);
             laptopPanel.add(imageLabel);
+            laptopPanel.add(specsLabel);
             laptopPanel.add(idLabel);
             laptopPanel.add(priceLabel);
-    
+            laptopPanel.add(dayLabel);
             mainPanel.add(laptopPanel);
         }
     

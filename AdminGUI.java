@@ -96,9 +96,14 @@ public class AdminGUI extends JFrame {
         mainPanel.add(updateReturnedLaptopsButton);
 
         JButton menuButton = new JButton("Logout");
-        menuButton.setBounds(670, 550, 100, 30);
+        menuButton.setBounds(675, 550, 100, 30);
         menuButton.addActionListener(e -> handleMenu()); // Call method for handling menu actions
         mainPanel.add(menuButton);
+
+        JButton dataSummary = new JButton("Show Data");
+        dataSummary.setBounds(670, 500, 110, 25);
+        dataSummary.addActionListener(e -> handleDataSummary()); // Call method for handling menu actions
+        mainPanel.add(dataSummary);
 
         try {
             backgroundImage = ImageIO.read(new File("Adminpic.png"));
@@ -129,6 +134,11 @@ public class AdminGUI extends JFrame {
     private void handleMenu() {
         app.logout();
     }
+    private void handleDataSummary() {
+        DataSummary dataSummary = new DataSummary();
+        dataSummary.showDataSummary();
+    }
+    
 
     public void updateUserList(HashMap<String, Student> users) {
         List<String> userList = convertUserDetailsToStringList(users);
@@ -201,7 +211,7 @@ public class AdminGUI extends JFrame {
             String[] parts = line.split(" : ");
             if (parts.length >= 5) { // Assuming each user entry has at least 5 parts
                 transformedData.add("Username: " + parts[0]);
-                transformedData.add("Password: " + parts[1]);
+                transformedData.add("Password: " + "[Encrypted]");
                 transformedData.add("Student ID: " + parts[2]);
                 transformedData.add("First Name: " + parts[3]);
                 transformedData.add("Last Name: " + parts[4]);
