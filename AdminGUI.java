@@ -130,7 +130,7 @@ public class AdminGUI extends JFrame {
         }
         return data;
     }
-
+    //usually handleLogout() but im too lazy to change it
     private void handleMenu() {
         app.logout();
     }

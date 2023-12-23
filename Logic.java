@@ -153,12 +153,12 @@ public class Logic {
     private Map<String, Laptop> initializeAvailableLaptops() {
         Map<String, Laptop> laptops = new HashMap<>(); // Initialize laptops as a new HashMap
 
-        laptops.put("ID001", new Laptop("ID001", "Lenovo L13", "lenovo.png", 200.0,"10th Gen Intel Core i7, 16GB RAM ,1TB SSD"));
-        laptops.put("ID002", new Laptop("ID002", "Dell Latitude", "dell.png", 400.0,"13th Gen Intel Core 15, 8GB RAM, 256GB SSD"));
-        laptops.put("ID003", new Laptop("ID003", "Acer Aspire", "acer.png", 300.0, "Intel UHD Graphics, 8GB RAM, 256GB SSD"));
-        laptops.put("ID004", new Laptop("ID004", "MSI GF63", "msi.png", 600.0, "9th Gen Intel Core i7, 64GB RAM, 1TB SSD"));
-        laptops.put("ID005", new Laptop("ID005", "HP Envy", "hp.png", 300.0, "5th Gen Intel Core i7, 12GB RAM, 1TB HDD"));
-        laptops.put("ID006", new Laptop("ID006", "Lenovo Thinkpad", "LenovoT.png", 200.0, "3rd Gen Intel Core i7, 4GB RAM, 128GB SSD"));
+        laptops.put("ID001", new Laptop("ID001", "Lenovo L13", "laptops/lenovo.png", 200.0,"10th Gen Intel Core i7, 16GB RAM ,1TB SSD"));
+        laptops.put("ID002", new Laptop("ID002", "Dell Latitude", "laptops/dell.png", 400.0,"13th Gen Intel Core 15, 8GB RAM, 256GB SSD"));
+        laptops.put("ID003", new Laptop("ID003", "Acer Aspire", "laptops/acer.png", 300.0, "Intel UHD Graphics, 8GB RAM, 256GB SSD"));
+        laptops.put("ID004", new Laptop("ID004", "MSI GF63", "laptops/msi.png", 600.0, "9th Gen Intel Core i7, 64GB RAM, 1TB SSD"));
+        laptops.put("ID005", new Laptop("ID005", "HP Envy", "laptops/hp.png", 300.0, "5th Gen Intel Core i7, 12GB RAM, 1TB HDD"));
+        laptops.put("ID006", new Laptop("ID006", "Lenovo Thinkpad", "laptops/LenovoT.png", 200.0, "3rd Gen Intel Core i7, 4GB RAM, 128GB SSD"));
         // Add more laptops here...
 
         return laptops; 
