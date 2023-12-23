@@ -33,9 +33,6 @@ public class AdminHandling {
         return admins;
     }
 
-    // Method to retrieve admin credentials based on username
-
-
     // Method to save admin credentials
     public void saveAdminCredentials(String username, String password) {
         try {
@@ -66,18 +63,13 @@ public class AdminHandling {
         }
         return null;
     }
-    public void updateUserDetails(HashMap<String, Student> users) {
-        // Update the admin panel's displayed user details based on the received data
-        // This could involve updating a JTable or another component in the panel
-        // Use the passed user details HashMap to update the displayed information
-    }
     // Check if a user is an admin
     public boolean isAdmin(String username) {
         String storedPassword = retrieveAdminCredentials(username);
         return storedPassword != null; // Return true if the password exists (admin)
     }
 
-    // Method to get all admin usernames
+    // Method to get all admin usernames but im not adding it since it isn't necessary to get all admin info
     public void addAdmin(String username, String password) {
         try {
             File adminFile = new File("admin.txt");

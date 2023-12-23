@@ -51,7 +51,7 @@ public class LoginPanel extends JPanel {
         add(signupButton);
 
         try {
-            backgroundImage = ImageIO.read(new File("Loginpic.png"));
+            backgroundImage = ImageIO.read(new File("bg/Loginpic.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,6 +65,7 @@ public class LoginPanel extends JPanel {
         }
     }
 
+    //method for handling login
     private void handleLogin() {
         String username = usernameField.getText();
         String password = String.valueOf(passwordField.getPassword());
@@ -83,12 +84,13 @@ public class LoginPanel extends JPanel {
         }
     }
     
+    //method for checking if username is an admin
     private boolean isAdmin(String username) {
         AdminHandling adminHandler = new AdminHandling();
         return adminHandler.isAdmin(username);
     }
     
-
+    //method for checking if username and password are valid
     private boolean isValidLogin(String username, String password) {
         if (users.containsKey(username)) {
             Student student = users.get(username);

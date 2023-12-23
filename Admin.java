@@ -1,3 +1,4 @@
+//admins are not actually encapsulated but i stil added these codes if i get stuck on a problem
 public class Admin {
     private String username;
     private String password;
@@ -39,7 +40,6 @@ public class Admin {
         this.username = username;
     }
 
-    // For security reasons, it's better not to expose the password through a getter
     public String getPassword(){
         return password;
     }
@@ -52,7 +52,5 @@ public class Admin {
         String hashedEnteredPassword = PasswordUtils.hashPassword(enteredPassword);
         return hashedEnteredPassword.equals(this.password);
     }
-
-    // Optional: Other methods specific to an Admin
 
 }

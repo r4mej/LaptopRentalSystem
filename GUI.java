@@ -31,7 +31,4 @@ public class GUI extends JFrame implements ActionListener {
         logic.handleAction(e);
     }
 
-    public static void main(String[] args) {
-
-    }
 }

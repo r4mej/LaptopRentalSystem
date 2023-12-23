@@ -31,7 +31,6 @@ public class Student {
         return password;
     }
     public void setPassword(String password) {
-        // Hash the password before setting it
         this.password = password;
     }
     public String getFirstname(){

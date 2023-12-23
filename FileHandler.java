@@ -9,6 +9,7 @@ public class FileHandler {
         this.filename = filename;
     }
 
+    // Read data from file
     public Map<String, String> readFromFile() {
         Map<String, String> rentedLaptops = new HashMap<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
@@ -23,6 +24,7 @@ public class FileHandler {
         return rentedLaptops;
     }
 
+    // Write data to file
     public void writeToFile(Map<String, String> rentedLaptops, Map<String, Laptop> availableLaptops) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
              BufferedWriter returnedWriter = new BufferedWriter(new FileWriter("returnedLaptops.txt", true))) {

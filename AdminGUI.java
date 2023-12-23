@@ -20,7 +20,6 @@ public class AdminGUI extends JFrame {
     private DefaultListModel returnedLaptopsListModel;
     private DefaultListModel userListModel;
     private Image backgroundImage;
-    private GUIComponents components;
 
     private JButton updateUserListButton;
     private JButton updateRentHistoryButton;
@@ -28,7 +27,6 @@ public class AdminGUI extends JFrame {
 
     public AdminGUI(LoginSignupApp app) {
         this.app = app;
-        this.components = components;
         this.userListModel = new DefaultListModel<>(); // Initialize the DefaultListModel
         this.userList = new JList<>(userListModel); // Assign the DefaultListModel to the JList
         this.returnedLaptopsListModel = new DefaultListModel<>();
@@ -51,6 +49,7 @@ public class AdminGUI extends JFrame {
         JScrollPane paymentHistoryScrollPane = new JScrollPane(paymentHistoryList);
         userScrollPane.setBounds(10, 45, 200, 500);
         paymentHistoryScrollPane.setBounds(230, 45, 200, 500);
+
         JScrollPane returnedLaptopsScrollPane = new JScrollPane(returnedLaptopsList);
         returnedLaptopsScrollPane.setBounds(450, 45, 200, 500);
 
@@ -80,7 +79,9 @@ public class AdminGUI extends JFrame {
         updateReturnedLaptopsButton = new JButton("Update Returned Laptops");
         updateReturnedLaptopsButton.setBounds(460, 550, 180, 30);
         updateReturnedLaptopsButton.addActionListener(e -> updateReturnedLaptopsFromFile("returnedLaptops.txt"));
+        
         Border border = BorderFactory.createLineBorder(Color.YELLOW, 3);
+        
         mainPanel.setBorder(border);
         mainPanel.add(userScrollPane);
         mainPanel.add(paymentHistoryScrollPane);
@@ -97,16 +98,16 @@ public class AdminGUI extends JFrame {
 
         JButton menuButton = new JButton("Logout");
         menuButton.setBounds(675, 550, 100, 30);
-        menuButton.addActionListener(e -> handleMenu()); // Call method for handling menu actions
+        menuButton.addActionListener(e -> handleMenu()); // Call method for handling menu
         mainPanel.add(menuButton);
 
         JButton dataSummary = new JButton("Show Data");
         dataSummary.setBounds(670, 500, 110, 25);
-        dataSummary.addActionListener(e -> handleDataSummary()); // Call method for handling menu actions
+        dataSummary.addActionListener(e -> handleDataSummary()); // Call method for handling data summary
         mainPanel.add(dataSummary);
 
         try {
-            backgroundImage = ImageIO.read(new File("Adminpic.png"));
+            backgroundImage = ImageIO.read(new File("bg/Adminpic.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,6 +135,7 @@ public class AdminGUI extends JFrame {
     private void handleMenu() {
         app.logout();
     }
+    //method for going to datasummary class
     private void handleDataSummary() {
         DataSummary dataSummary = new DataSummary();
         dataSummary.showDataSummary();

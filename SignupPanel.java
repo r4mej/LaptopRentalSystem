@@ -6,8 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 
 public class SignupPanel extends JPanel {
@@ -85,7 +83,7 @@ public class SignupPanel extends JPanel {
         add(roleDropdown);
 
         try {
-            backgroundImage = ImageIO.read(new File("Signuppic.png"));
+            backgroundImage = ImageIO.read(new File("bg/Signuppic.png"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -98,7 +96,7 @@ public class SignupPanel extends JPanel {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
-
+    //method for handling signup buttton
     private void handleSignup() {
         String firstName = firstNameField.getText();
         String lastName = lastNameField.getText();
@@ -107,7 +105,16 @@ public class SignupPanel extends JPanel {
         String id = idField.getText();
         String selectedRole = (String) roleDropdown.getSelectedItem();
     
-        // Validation checks
+        /*  Validation checks
+         First name, Last name, username, password, and id should not be empty
+         First name and last name should contain only letters
+         Username should not be a single character
+         Username should not contain numbers
+         Username should contain only alphanumeric characters
+         Password should be at least 8 characters long
+         Student ID should not be empty/'0000-0000' format/should not be letters
+        */
+
         if (!firstName.matches("[a-zA-Z]+")) {
             JOptionPane.showMessageDialog(this, "First name should contain only letters!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -142,18 +149,20 @@ public class SignupPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Student ID should be in the format '0000-0000'!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }        
-    
+        // username taken
         if (isUsernameTaken(username)) {
             JOptionPane.showMessageDialog(this, "Username already exists!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        // id taken
         if (isIdTaken(id)) {
             JOptionPane.showMessageDialog(this, "Student ID already exists!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
         
         
-    
+        // dropdown value logic
+        // hashes passwords with PasswordUtils.hashPassword method
         if ("Admin".equals(selectedRole)) {
             String hashedPassword = PasswordUtils.hashPassword(password);
             app.saveAdminCredentials(username, hashedPassword); 
@@ -167,10 +176,11 @@ public class SignupPanel extends JPanel {
         JOptionPane.showMessageDialog(this, "Signup successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
         app.showLoginForm();
     }
-    
+    //simple method for handling taken usernames 
     private boolean isUsernameTaken(String username) {
         return users.containsKey(username);
     }
+    // weird method for handling taken id
     private boolean isIdTaken(String id){
         return id != null && users.values().stream().anyMatch(student -> id.equals(student.getId()));
     }

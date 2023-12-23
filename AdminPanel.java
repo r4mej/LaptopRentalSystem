@@ -14,14 +14,6 @@ public class AdminPanel extends JPanel {
             frame.setResizable(false); // Set the frame non-resizable
         }
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            LoginSignupApp app = null; // Replace with your instance of LoginSignupApp
-            AdminPanel adminPanel = new AdminPanel(app);
-        });
-    }
-
     public void updateUserDetails(HashMap<String, Student> users) {
         adminGUI.updateUserList(users); // Pass the updated user details to AdminGUI
     }

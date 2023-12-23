@@ -44,7 +44,7 @@ public class GUIComponents {
 
     private void initComponents() {
         // Replace "path_to_your_image.jpg" with the actual path to your image
-        String imagePath = "Menupic.png";
+        String imagePath = "bg/Menupic.png";
         
         // Create the panel with a background image
         panel = new ImagePanel(imagePath);

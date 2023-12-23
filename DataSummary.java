@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class DataSummary {
         int numberOfReturnedLaptops = readIntegerFromFile("returnedLaptops.txt");
         int totalNumberOfLaptops = 6;
         int numberOfAvailableLaptops = totalNumberOfLaptops - numberOfRentedLaptops;
+        Border border = BorderFactory.createLineBorder(Color.GREEN, 3);
 
         usersLabel = new JLabel("Number of Users: " + numberOfUsers);
         rentedLabel = new JLabel("Currently Rented Laptops: " + numberOfRentedLaptops);
@@ -42,6 +45,7 @@ public class DataSummary {
         updateButton.setBounds(70, 130, 150, 30);
 
         // Add components to the panel
+        panel.setBorder(border);
         panel.add(usersLabel);
         panel.add(rentedLabel);
         panel.add(returnedLabel);
@@ -73,7 +77,6 @@ public class DataSummary {
         return count;
     }
 
-    // Method to update files with the latest data
     // Method to update files with the latest data
 private void updateFiles() {
     // Perform logic to update the files with the latest data
@@ -136,8 +139,6 @@ private void updateDisplayedCounts() {
         System.out.println("Labels are not initialized properly");
     }
 }
-
-
 
     // Method to display the data summary window
     public void showDataSummary() {
