@@ -33,7 +33,6 @@ public class DataSummary {
         returnedLabel = new JLabel("All of Returned Laptops: " + numberOfReturnedLaptops);
         availableLaptops = new JLabel("Currently Available laptops: " + numberOfAvailableLaptops);
 
-
         JButton updateButton = new JButton("Update Data");
         updateButton.addActionListener(e -> updateFiles());
 
