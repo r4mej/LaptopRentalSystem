@@ -34,6 +34,7 @@ public class GUIComponents {
     private JPanel panel;
     private Logic logic;
     private LoginSignupApp app;
+    private Image backgroundImage;
 
     public GUIComponents(JFrame frame, Logic logic, LoginSignupApp app) {
         this.frame = frame;
@@ -43,8 +44,13 @@ public class GUIComponents {
     }
 
     private void initComponents() {
-        // Replace "path_to_your_image.jpg" with the actual path to your image
+
         String imagePath = "bg/Menupic.png";
+        try {
+            backgroundImage = ImageIO.read(new File("bg/Loginpic.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         // Create the panel with a background image
         panel = new ImagePanel(imagePath);
