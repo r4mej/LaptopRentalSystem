@@ -1,4 +1,3 @@
-//admins are not actually encapsulated but i stil added these codes if i get stuck on a problem
 public class Admin {
     private String username;
     private String password;

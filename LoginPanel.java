@@ -15,13 +15,16 @@ public class LoginPanel extends JPanel {
     private JButton loginButton;
     private JButton signupButton;
     private Image backgroundImage;
+    private AdminHandling adminHandler;
 
     private LoginSignupApp app;
     private HashMap<String, Student> users;
 
-    public LoginPanel(LoginSignupApp app, HashMap<String, Student> users) {
+    public LoginPanel(LoginSignupApp app, HashMap<String, Student> users, AdminHandling adminHandler) {
         this.app = app;
         this.users = users;
+        this.adminHandler = adminHandler;
+
         setLayout(null);
 
         JLabel usernameLabel = new JLabel("Username:");
@@ -86,12 +89,19 @@ public class LoginPanel extends JPanel {
     
     //method for checking if username is an admin
     private boolean isAdmin(String username) {
-        AdminHandling adminHandler = new AdminHandling();
         return adminHandler.isAdmin(username);
     }
     
     //method for checking if username and password are valid
     private boolean isValidLogin(String username, String password) {
+        if (adminHandler.isAdmin(username)) {
+            Admin admin = adminHandler.retrieveAdminByUsername(username);
+            if (admin != null) {
+                String storedPasswordHash = admin.getPassword();
+                String enteredPasswordHash = PasswordUtils.hashPassword(password);
+                return enteredPasswordHash != null && enteredPasswordHash.equals(storedPasswordHash);
+            }
+        }
         if (users.containsKey(username)) {
             Student student = users.get(username);
             String storedPasswordHash = student.getPassword(); // Get the stored hashed password
@@ -101,17 +111,6 @@ public class LoginPanel extends JPanel {
     
             // Compare the entered password's hash with the stored hash
             return enteredPasswordHash != null && enteredPasswordHash.equals(storedPasswordHash);
-        } else {
-            // Admin handling for comparison
-            AdminHandling adminHandler = new AdminHandling();
-            String storedPasswordHash = adminHandler.retrieveAdminCredentials(username);
-    
-            if (storedPasswordHash != null) {
-                String enteredPasswordHash = PasswordUtils.hashPassword(password);
-
-            // Compare the entered password's hash with the stored hash
-            return enteredPasswordHash != null && enteredPasswordHash.equals(storedPasswordHash);
-            }
         }
         return false;
     }

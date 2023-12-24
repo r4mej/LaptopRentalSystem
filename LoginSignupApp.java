@@ -28,7 +28,7 @@ public class LoginSignupApp extends JFrame {
         usersHandler = new UsersHandling(users);
         adminHandler = new AdminHandling();
 
-        adminHandler.loadAdminCredentialsFromFile();
+        adminHandler.loadAdminsFromFile();
         usersHandler.loadUsersFromFile();
 
         hashLoadedUserPasswords();
@@ -36,9 +36,9 @@ public class LoginSignupApp extends JFrame {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
-        loginPanel = new LoginPanel(this, users);
+        loginPanel = new LoginPanel(this, users, adminHandler);
         signupPanel = new SignupPanel(this, users);
-        adminPanel = new AdminPanel(this); // Instantiate the AdminPanel
+        adminPanel = new AdminPanel(this); 
 
 
         cardPanel.add(adminPanel, "admin");
