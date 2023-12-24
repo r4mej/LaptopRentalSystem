@@ -14,7 +14,4 @@ public class AdminPanel extends JPanel {
             frame.setResizable(false); // Set the frame non-resizable
         }
     }
-    public void updateUserDetails(HashMap<String, Student> users) {
-        adminGUI.updateUserList(users); // Pass the updated user details to AdminGUI
-    }
 }

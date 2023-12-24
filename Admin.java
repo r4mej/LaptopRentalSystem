@@ -5,12 +5,10 @@ public class Admin {
     private String lastName;
     private String id;
 
+    //not gonna collect id, firstname, and lastname. 
     public Admin(String username, String password) {
         this.username = username;
         this.password = password;
-        // this.firstName = firstName;
-        // this.lastName = lastName;
-        // this.id = id;
     }
     public String getFirstName(){
         return firstName;

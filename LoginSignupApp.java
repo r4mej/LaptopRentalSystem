@@ -83,7 +83,6 @@ public class LoginSignupApp extends JFrame {
     public void logout(){
         showAdminPanel(false);
         setVisible(false); // Hide the GUI
-        updateUserDetails();
         LoginSignupApp newAppInstance = new LoginSignupApp(); // Create a new instance of LoginSignupApp
         newAppInstance.setVisible(true); // Show the new login/signup app window
     }
@@ -93,12 +92,6 @@ public class LoginSignupApp extends JFrame {
     }
     public void showAdminPanel(boolean isVisible) {
         adminFrame.setVisible(isVisible);
-    }
-    public void updateAdminPanel() {
-        adminPanel.updateUserDetails(users); // Pass the updated user information to the AdminPanel
-    }
-    public void updateUserDetails() {
-        adminPanel.updateUserDetails(users); // Pass the updated user data to the Admin Panel
     }
     private void hashLoadedUserPasswords() {
         for (Student student : users.values()) {
