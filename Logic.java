@@ -21,12 +21,12 @@ public class Logic {
     private Map<String, String> rentedLaptops;
     private Map<String, Laptop> availableLaptops;
     private FileHandler fileHandler;
-    private GUIComponents guiComponents;
+    private Menu guiComponents;
     private boolean isLoggedIn;
 
     // Constructor to initialize GUIComponents, rentedLaptops, and fileHandler
 
-    public Logic(GUIComponents guiComponents) {
+    public Logic(Menu guiComponents) {
         this.guiComponents = guiComponents;
         availableLaptops = initializeAvailableLaptops();
         rentedLaptops = new HashMap<>();
@@ -150,7 +150,7 @@ public class Logic {
 }
 
 
-    private Map<String, Laptop> initializeAvailableLaptops() {
+    public Map<String, Laptop> initializeAvailableLaptops() {
         Map<String, Laptop> laptops = new HashMap<>(); // Initialize laptops as a new HashMap
 
         laptops.put("ID001", new Laptop("ID001", "Lenovo L13", "laptops/lenovo.png", 200.0,"10th Gen Intel Core i7, 16GB RAM ,1TB SSD"));

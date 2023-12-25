@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.imageio.ImageIO;
 
 public class AdminGUI extends JFrame {
@@ -21,6 +23,8 @@ public class AdminGUI extends JFrame {
     private DefaultListModel returnedLaptopsListModel;
     private DefaultListModel userListModel;
     private Image backgroundImage;
+    private Logic logic;
+    private Menu menu;
 
     private JButton updateUserListButton;
     private JButton updateRentHistoryButton;
@@ -32,6 +36,7 @@ public class AdminGUI extends JFrame {
         this.userList = new JList<>(userListModel); // Assign the DefaultListModel to the JList
         this.returnedLaptopsListModel = new DefaultListModel<>();
         this.returnedLaptopsList = new JList<>(returnedLaptopsListModel);
+        this.logic = new Logic(menu);
         mainPanel = new JPanel();
         mainPanel.setLayout(null);
 
@@ -75,11 +80,11 @@ public class AdminGUI extends JFrame {
 
         updateRentHistoryButton = new JButton("Update Rent History");
         updateRentHistoryButton.setBounds(250, 550, 150, 30);
-        updateRentHistoryButton.addActionListener(e -> updateRentHistoryFromFile("rentedLaptops.txt"));
+        updateRentHistoryButton.addActionListener(e -> handleUpdateRentHistory());
 
         updateReturnedLaptopsButton = new JButton("Update Returned Laptops");
         updateReturnedLaptopsButton.setBounds(460, 550, 180, 30);
-        updateReturnedLaptopsButton.addActionListener(e -> updateReturnedLaptopsFromFile("returnedLaptops.txt"));
+        updateReturnedLaptopsButton.addActionListener(e -> handleUpdateReturnedLaptops());
 
         Border border = BorderFactory.createLineBorder(Color.YELLOW, 3);
 
@@ -144,112 +149,237 @@ public class AdminGUI extends JFrame {
         dataSummary.showDataSummary();
     }
 
-    private void updateRentHistoryFromFile(String fileName) {
-        List<String> rentHistory = readFromFile(fileName);
-        paymentHistoryList.setModel(new AbstractListModel<String>() {
-            @Override
-            public int getSize() {
-                return rentHistory.size();
-            }
-
-            @Override
-            public String getElementAt(int index) {
-                return rentHistory.get(index);
-            }
-        });
+    private void handleUpdateRentHistory() {
+        int selectedIndex = paymentHistoryList.getSelectedIndex();
+        if (selectedIndex != -1) {
+            List<String> rentHistory = readFromFile("rentedLaptops.txt");
+            String selectedRent = rentHistory.get(selectedIndex);
+            List<String> rentDetails = Collections.singletonList(selectedRent);
+            displayRentDetails(rentDetails);
+        }
     }
 
-    private void updateReturnedLaptopsFromFile(String fileName) {
-        List<String> returnedLaptops = readFromFile(fileName);
-        returnedLaptopsList.setModel(new AbstractListModel<String>() {
-            @Override
-            public int getSize() {
-                return returnedLaptops.size();
-            }
+    // Method to display rent details in a separate window
+    private void displayRentDetails(List<String> rentDetails) {
+        JFrame rentDetailsFrame = new JFrame("Rent Details");
+        rentDetailsFrame.setSize(300, 250);
 
-            @Override
-            public String getElementAt(int index) {
-                return returnedLaptops.get(index);
-            }
-        });
-    }
+        JPanel rentDetailsPanel = new JPanel();
+        rentDetailsPanel.setLayout(null);
 
-    private List<String> transformUsersFileContents(List<String> fileContents) {
-        List<String> transformedData = new ArrayList<>();
-        for (String line : fileContents) {
-            String[] parts = line.split(" : ");
-            if (parts.length >= 5) { // Assuming each user entry has at least 5 parts
-                transformedData.add("Username: " + parts[0]);
-                transformedData.add("-------------------------------"); // Separator between users
+        int labelX = 40;
+        int yPosition = 40;
+        int labelWidth = 100;
+        int textFieldWidth = 150;
+        int height = 20;
+        int verticalGap = 30;
+
+        Border border = BorderFactory.createLineBorder(Color.GREEN, 3);
+
+        rentDetailsPanel.setBorder(border);
+
+        for (String rent : rentDetails) {
+            String[] parts = rent.split(",");
+            if (parts.length >= 3) {
+                JLabel idLabel = new JLabel("Laptop ID: ");
+                JLabel nameLabel = new JLabel("Laptop Name: ");
+                JLabel studentIdLabel = new JLabel("Student ID:");
+                JLabel priceLabel = new JLabel("Price:");
+
+                idLabel.setBounds(labelX, yPosition, labelWidth, height);
+                nameLabel.setBounds(labelX, yPosition + verticalGap, labelWidth, height);
+                studentIdLabel.setBounds(labelX, yPosition + (2 * verticalGap), labelWidth, height);
+                priceLabel.setBounds(labelX, yPosition + (3 * verticalGap), labelWidth, height);
+
+                JTextField idField = new JTextField(parts[0]);
+                JTextField nameField = new JTextField(getLaptopNameByID(parts[0])); // Pass ID to fetch name
+                JTextField studentIdField = new JTextField(parts[1]);
+                JTextField priceField = new JTextField(parts[2]);
+
+                idField.setBounds(labelX + labelWidth, yPosition, textFieldWidth, height);
+                nameField.setBounds(labelX + labelWidth, yPosition + verticalGap, textFieldWidth, height);
+                studentIdField.setBounds(labelX + labelWidth, yPosition + (2 * verticalGap), textFieldWidth, height);
+                priceField.setBounds(labelX + labelWidth, yPosition + (3 * verticalGap), textFieldWidth, height);
+
+                idField.setEditable(false);
+                nameField.setEditable(false);
+                studentIdField.setEditable(false);
+                priceField.setEditable(false);
+
+                rentDetailsPanel.add(idLabel);
+                rentDetailsPanel.add(nameLabel);
+                rentDetailsPanel.add(studentIdLabel);
+                rentDetailsPanel.add(priceLabel);
+                rentDetailsPanel.add(idField);
+                rentDetailsPanel.add(nameField);
+                rentDetailsPanel.add(studentIdField);
+                rentDetailsPanel.add(priceField);
+
+                yPosition += 4 * verticalGap; // Move to the next set of details
             } else {
-                // Handle the case where data is incomplete or incorrect
+                JLabel errorLabel = new JLabel("Invalid rent data format");
+                errorLabel.setBounds(labelX, yPosition, labelWidth, height);
+                rentDetailsPanel.add(errorLabel);
+
+                yPosition += verticalGap; // Move to the next line
             }
         }
-        return transformedData;
-    }
-    private void handleUpdateUserList() {
-    int selectedIndex = userList.getSelectedIndex();
-    if (selectedIndex != -1) {
-        List<String> users = readFromFile("users.txt");
-        String selectedUser = users.get(selectedIndex);
-        List<String> userDetails = Collections.singletonList(selectedUser);
-        displayUserDetails(userDetails);
-    }
-}
 
-    //method to display user details in a separate window
+        rentDetailsFrame.add(rentDetailsPanel);
+        rentDetailsFrame.setVisible(true);
+        rentDetailsFrame.setResizable(false);
+        rentDetailsFrame.setLocationRelativeTo(null);
+    }
+
+    private String getLaptopNameByID(String id) {
+        Map<String, Laptop> availableLaptops = logic.initializeAvailableLaptops(); // Fetch available laptops
+        if (availableLaptops.containsKey(id)) {
+            return availableLaptops.get(id).getName();
+        }
+        return "Unknown";
+    }
+
+    private void handleUpdateReturnedLaptops() {
+        int selectedIndex = returnedLaptopsList.getSelectedIndex();
+        if (selectedIndex != -1) {
+            List<String> returnedLaptops = readFromFile("returnedLaptops.txt");
+            String selectedReturn = returnedLaptops.get(selectedIndex);
+            List<String> returnDetails = Collections.singletonList(selectedReturn);
+            displayReturnedLaptopDetails(returnDetails);
+        }
+    }
+
+    // Method to display returned laptops details in a separate window
+    private void displayReturnedLaptopDetails(List<String> returnDetails) {
+        JFrame returnDetailsFrame = new JFrame("Returned Laptops Details");
+        returnDetailsFrame.setSize(300, 250);
+
+        JPanel returnDetailsPanel = new JPanel();
+        returnDetailsPanel.setLayout(null);
+
+        int labelX = 40;
+        int yPosition = 40;
+        int labelWidth = 100;
+        int textFieldWidth = 150;
+        int height = 20;
+        int verticalGap = 30;
+
+        Border border = BorderFactory.createLineBorder(Color.GREEN, 3);
+        returnDetailsPanel.setBorder(border);
+
+        for (String returnData : returnDetails) {
+            String[] parts = returnData.split(",");
+            if (parts.length >= 2) { // Assuming ID and Student ID are present
+                String laptopID = parts[0];
+                JLabel idLabel = new JLabel("Laptop ID: ");
+                JLabel laptopNameLabel = new JLabel("Laptop Name: ");
+                JLabel studentIdLabel = new JLabel("Student ID:");
+
+                idLabel.setBounds(labelX, yPosition, labelWidth, height);
+                laptopNameLabel.setBounds(labelX, yPosition + verticalGap, labelWidth, height);
+                studentIdLabel.setBounds(labelX, yPosition + 2 * verticalGap, labelWidth, height);
+
+                JTextField idField = new JTextField(laptopID);
+                JTextField laptopNameField = new JTextField(getLaptopNameByID(laptopID)); // Fetch Name
+                JTextField studentIdField = new JTextField(parts[1]);
+
+                idField.setBounds(labelX + labelWidth, yPosition, textFieldWidth, height);
+                laptopNameField.setBounds(labelX + labelWidth, yPosition + verticalGap, textFieldWidth, height);
+                studentIdField.setBounds(labelX + labelWidth, yPosition + 2 * verticalGap, textFieldWidth, height);
+
+                idField.setEditable(false);
+                laptopNameField.setEditable(false);
+                studentIdField.setEditable(false);
+
+                returnDetailsPanel.add(idLabel);
+                returnDetailsPanel.add(laptopNameLabel);
+                returnDetailsPanel.add(studentIdLabel);
+                returnDetailsPanel.add(idField);
+                returnDetailsPanel.add(laptopNameField);
+                returnDetailsPanel.add(studentIdField);
+
+                yPosition += 3 * verticalGap; // Move to the next set of details
+            } else {
+                JLabel errorLabel = new JLabel("Invalid return data format");
+                errorLabel.setBounds(labelX, yPosition, labelWidth, height);
+                returnDetailsPanel.add(errorLabel);
+
+                yPosition += verticalGap; // Move to the next line
+            }
+        }
+
+        returnDetailsFrame.add(returnDetailsPanel);
+        returnDetailsFrame.setVisible(true);
+        returnDetailsFrame.setResizable(false);
+        returnDetailsFrame.setLocationRelativeTo(null);
+    }
+
+    private void handleUpdateUserList() {
+        int selectedIndex = userList.getSelectedIndex();
+        if (selectedIndex != -1) {
+            List<String> users = readFromFile("users.txt");
+            String selectedUser = users.get(selectedIndex);
+            List<String> userDetails = Collections.singletonList(selectedUser);
+            displayUserDetails(userDetails);
+        }
+    }
+
+    // method to display user details in a separate window
     private void displayUserDetails(List<String> userDetails) {
         JFrame userDetailsFrame = new JFrame("User Details");
-        userDetailsFrame.setSize(300, 300);
-    
+        userDetailsFrame.setSize(300, 250);
+
         JPanel userDetailsPanel = new JPanel();
         userDetailsPanel.setLayout(null);
-    
+
         JLabel usernameLabel = new JLabel("Username:");
         JLabel passwordLabel = new JLabel("Password:");
         JLabel studentIdLabel = new JLabel("Student ID:");
         JLabel firstNameLabel = new JLabel("First Name:");
         JLabel lastNameLabel = new JLabel("Last Name:");
-    
-        int labelX = 40; // X position for labels
-        int yPosition = 40; // Initial y position
+
+        int labelX = 40;
+        int yPosition = 40;
         int labelWidth = 100;
         int textFieldWidth = 150;
         int height = 20;
         int verticalGap = 30;
-    
+
+        Border border = BorderFactory.createLineBorder(Color.GREEN, 3);
+
         usernameLabel.setBounds(labelX, yPosition, labelWidth, height);
         passwordLabel.setBounds(labelX, yPosition + verticalGap, labelWidth, height);
         studentIdLabel.setBounds(labelX, yPosition + 2 * verticalGap, labelWidth, height);
         firstNameLabel.setBounds(labelX, yPosition + 3 * verticalGap, labelWidth, height);
         lastNameLabel.setBounds(labelX, yPosition + 4 * verticalGap, labelWidth, height);
-    
+
+        userDetailsPanel.setBorder(border);
         userDetailsPanel.add(usernameLabel);
         userDetailsPanel.add(passwordLabel);
         userDetailsPanel.add(studentIdLabel);
         userDetailsPanel.add(firstNameLabel);
         userDetailsPanel.add(lastNameLabel);
-    
+
         for (String user : userDetails) {
             String[] parts = user.split(" : ");
             if (parts.length >= 5) {
                 JTextField textField = new JTextField(parts[0]);
                 userDetailsPanel.add(textField);
-                textField.setBounds(labelX + labelWidth , yPosition, textFieldWidth, height);
+                textField.setBounds(labelX + labelWidth, yPosition, textFieldWidth, height);
                 textField.setEditable(false);
-    
+
                 for (int i = 1; i < parts.length; i++) {
                     if (i == 1) {
                         JLabel infoLabel = new JLabel("[Encrypted]");
                         userDetailsPanel.add(infoLabel);
-                        infoLabel.setBounds(labelX + labelWidth , yPosition + (i * verticalGap), textFieldWidth, height);
+                        infoLabel.setBounds(labelX + labelWidth, yPosition + (i * verticalGap), textFieldWidth, height);
                     } else {
                         JLabel infoLabel = new JLabel(parts[i]);
                         userDetailsPanel.add(infoLabel);
-                        infoLabel.setBounds(labelX + labelWidth , yPosition + (i * verticalGap), textFieldWidth, height);
+                        infoLabel.setBounds(labelX + labelWidth, yPosition + (i * verticalGap), textFieldWidth, height);
                     }
                 }
-    
+
                 yPosition += verticalGap * (parts.length - 1); // Update y position for the next user details
             } else {
                 // Handle incomplete or incorrect data for a user
@@ -259,11 +389,11 @@ public class AdminGUI extends JFrame {
                 yPosition += verticalGap;
             }
         }
-    
+
         userDetailsFrame.add(userDetailsPanel);
         userDetailsFrame.setVisible(true);
         userDetailsFrame.setResizable(false);
         userDetailsFrame.setLocationRelativeTo(null);
     }
-    
+
 }

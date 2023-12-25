@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 public class GUI extends JFrame implements ActionListener {
     private LoginSignupApp app;
-    private GUIComponents guiComponents;
+    private Menu guiComponents;
     private Logic logic;
 
     public GUI(LoginSignupApp app) {
@@ -15,14 +15,14 @@ public class GUI extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        guiComponents = new GUIComponents(this, new Logic(guiComponents), app);
+        guiComponents = new Menu(this, new Logic(guiComponents), app);
 
         setVisible(false);
     }
 
     public void showGUIComponents() {
 
-        guiComponents = new GUIComponents(this, new Logic(guiComponents), app);
+        guiComponents = new Menu(this, new Logic(guiComponents), app);
         setVisible(true);
     }
 
