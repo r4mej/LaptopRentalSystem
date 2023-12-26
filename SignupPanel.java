@@ -106,6 +106,7 @@ public class SignupPanel extends JPanel {
         String selectedRole = (String) roleDropdown.getSelectedItem();
     
         /*  Validation checks
+         blank Username
          First name, Last name, username, password, and id should not be empty
          First name and last name should contain only letters
          Username should not be a single character
@@ -114,6 +115,11 @@ public class SignupPanel extends JPanel {
          Password should be at least 8 characters long
          Student ID should not be empty/'0000-0000' format/should not be letters
         */
+
+        if (username.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a username!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         if (!firstName.matches("[a-zA-Z]+")) {
             JOptionPane.showMessageDialog(this, "First name should contain only letters!", "Error", JOptionPane.ERROR_MESSAGE);
