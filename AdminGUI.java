@@ -269,7 +269,7 @@ public class AdminGUI extends JFrame {
 
         for (String returnData : returnDetails) {
             String[] parts = returnData.split(",");
-            if (parts.length >= 2) { // Assuming ID and Student ID are present
+            if (parts.length >= 2) { 
                 String laptopID = parts[0];
                 JLabel idLabel = new JLabel("Laptop ID: ");
                 JLabel laptopNameLabel = new JLabel("Laptop Name: ");
