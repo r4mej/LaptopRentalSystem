@@ -252,7 +252,7 @@ public class AdminGUI extends JFrame {
     // Method to display returned laptops details in a separate window
     private void displayReturnedLaptopDetails(List<String> returnDetails) {
         JFrame returnDetailsFrame = new JFrame("Returned Laptops Details");
-        returnDetailsFrame.setSize(300, 250);
+        returnDetailsFrame.setSize(300, 200);
 
         JPanel returnDetailsPanel = new JPanel();
         returnDetailsPanel.setLayout(null);
@@ -327,7 +327,7 @@ public class AdminGUI extends JFrame {
     // method to display user details in a separate window
     private void displayUserDetails(List<String> userDetails) {
         JFrame userDetailsFrame = new JFrame("User Details");
-        userDetailsFrame.setSize(300, 250);
+        userDetailsFrame.setSize(300, 260);
 
         JPanel userDetailsPanel = new JPanel();
         userDetailsPanel.setLayout(null);
