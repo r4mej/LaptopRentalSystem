@@ -75,9 +75,11 @@ public class Logic {
 
             if (!studentName.isEmpty() && !studentId.isEmpty() && !laptopId.isEmpty()) {
                 boolean isValidStudent = validateStudent(studentName, studentId);
-
+        
                 if (!isValidStudent) {
                     JOptionPane.showMessageDialog(null, "Invalid Student Name or ID.");
+                } else if (hasAlreadyRented(studentId)) {
+                    JOptionPane.showMessageDialog(null, "You have already rented a laptop.");
                 } else if (availableLaptops.containsKey(laptopId)) {
                     if (rentedLaptops.containsKey(laptopId)) {
                         JOptionPane.showMessageDialog(null, "Laptop already rented.");
@@ -237,6 +239,15 @@ public class Logic {
         // userDetails = readFromFile("users.txt");
         return userDetails;
     }
+    public boolean hasAlreadyRented(String studentId) {
+        for (String rentedStudentId : rentedLaptops.values()) {
+            if (rentedStudentId.equals(studentId)) {
+                return true; // User has already rented a laptop
+            }
+        }
+        return false; // User has not rented any laptop
+    }
+    
 
     public void handleAction(ActionEvent e) {
         if (e.getSource() == guiComponents.getRentButton()) {

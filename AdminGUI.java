@@ -78,11 +78,11 @@ public class AdminGUI extends JFrame {
         updateUserListButton.setBounds(30, 550, 150, 30);
         updateUserListButton.addActionListener(e -> handleUpdateUserList());
 
-        updateRentHistoryButton = new JButton("Update Rent History");
+        updateRentHistoryButton = new JButton("Show Rent Details");
         updateRentHistoryButton.setBounds(250, 550, 150, 30);
         updateRentHistoryButton.addActionListener(e -> handleUpdateRentHistory());
 
-        updateReturnedLaptopsButton = new JButton("Update Returned Laptops");
+        updateReturnedLaptopsButton = new JButton("Show Returned Details");
         updateReturnedLaptopsButton.setBounds(460, 550, 180, 30);
         updateReturnedLaptopsButton.addActionListener(e -> handleUpdateReturnedLaptops());
 

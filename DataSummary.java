@@ -41,7 +41,7 @@ public class DataSummary {
         rentedLabel.setBounds(10, 40, 250, 20);
         returnedLabel.setBounds(10, 70, 250, 20);
         availableLaptops.setBounds(10, 100, 250, 20);
-        updateButton.setBounds(70, 130, 150, 30);
+        // updateButton.setBounds(70, 130, 150, 30);
 
         // Add components to the panel
         panel.setBorder(border);
@@ -49,7 +49,7 @@ public class DataSummary {
         panel.add(rentedLabel);
         panel.add(returnedLabel);
         panel.add(availableLaptops);
-        panel.add(updateButton);
+        // panel.add(updateButton);
 
         frame.add(panel);
         frame.setSize(300, 200);
